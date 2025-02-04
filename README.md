@@ -160,4 +160,4 @@ This implementation is for demonstration purposes and may not be suitable for pr
 ---
 
 ## Author
-- [Your Name] ([contact@jpgp.es])
+- Juan Pablo Garrido ([contact@jpgp.es])
