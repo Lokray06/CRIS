@@ -1,18 +1,36 @@
+import os
+import sys
 import ttkbootstrap as tb
 from ttkbootstrap.constants import *
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from encoder import encode_file
 from decoder import decode_file
-from keygen import generate_rsa_keys  # Assuming you have a keygen module for key generation
+from keygen import generate_rsa_keys, save_keys
+import webbrowser
+
+# Get the correct path to icon.ico
+if getattr(sys, 'frozen', False):
+    # Running as an executable
+    base_path = sys._MEIPASS
+else:
+    # Running as a script
+    base_path = os.path.abspath(".")
+
+icon_path = os.path.join(base_path, "icon.ico")
 
 def generate_keys_gui():
-    name = key_name_entry.get()
-    if not name:
-        messagebox.showerror("Error", "Please enter a name for the keys.")
+    key_name = key_name_entry.get()
+    if not key_name:
+        messagebox.showerror("Error", "Please enter a key name.")
         return
-    generate_rsa_keys(name)
-    messagebox.showinfo("Success", "Keys generated successfully!")
+    key_size = 2048  # Fixed key size for simplicity
+    try:
+        public_key, private_key = generate_rsa_keys(key_name, key_size)
+        save_keys(key_name, public_key, private_key)
+        messagebox.showinfo("Success", f"Keys generated successfully as '{key_name}_public.pem' and '{key_name}_private.pem'!")
+    except Exception as e:
+        messagebox.showerror("Error", f"Error generating keys: {str(e)}")
 
 def encode_gui():
     file_path = file_entry.get()
@@ -45,13 +63,14 @@ def about_info():
     messagebox.showinfo("About", "This is a simple RSA-based image steganography tool.")
 
 # Initialize the main window with Breeze dark theme
-root = tb.Window(themename="darkly")  # 'superhero' is a dark theme similar to Breeze Dark
+root = tb.Window(themename="darkly")
 root.title("CRIS")
 
-#Set the icon
-image = tk.PhotoImage(file= "icon.png")
-root.wm_iconphoto(False, image)
-
+# Set the icon
+try:
+    root.iconbitmap(icon_path)
+except:
+    messagebox.showwarning("Warning", "Icon file not found.")
 
 notebook = tb.Notebook(root)
 notebook.pack(expand=True, fill="both", padx=10, pady=10)
@@ -72,7 +91,7 @@ file_entry = tb.Entry(encode_tab, width=50)
 file_entry.pack(pady=5)
 tb.Button(encode_tab, cursor="hand2", text="Browse", bootstyle="info", command=lambda: browse_file(file_entry)).pack(pady=5)
 
-tb.Label(encode_tab, text="Select Image:").pack(pady=5)
+tb.Label(encode_tab, text="Select Image (PNG ONLY!!!):").pack(pady=5)
 image_entry = tb.Entry(encode_tab, width=50)
 image_entry.pack(pady=5)
 tb.Button(encode_tab, cursor="hand2", text="Browse", bootstyle="info", command=lambda: browse_file(image_entry)).pack(pady=5)
@@ -104,9 +123,6 @@ tb.Button(decode_tab, cursor="hand2", text="Browse", bootstyle="info", command=l
 
 tb.Button(decode_tab, cursor="hand2", text="Decode", bootstyle="success", command=decode_gui).pack(pady=10)
 
-import webbrowser
-import ttkbootstrap as tb
-
 # About Tab
 about_tab = tb.Frame(notebook)
 notebook.add(about_tab, text="About")
@@ -132,37 +148,28 @@ about_text = (
 
 tb.Label(about_tab, text=about_text, wraplength=400, justify="left").pack(pady=10, padx=10)
 
-# GitHub Link (styled manually as a link)
+# GitHub Link
 link_label = tb.Label(
     about_tab,
     text="GitHub Repository",
-    font=("Helvetica", 12, "underline"),  # Underline the text
-    foreground="turquoise",  # Make it look like a hyperlink
-    cursor="hand2"  # Change cursor on hover
+    font=("Helvetica", 12, "underline"),
+    foreground="turquoise",
+    cursor="hand2"
 )
 link_label.pack(pady=5)
 
-# Make link clickable
-def open_github(event):
-    webbrowser.open("https://github.com/Lokray06/CRIS")
+link_label.bind("<Button-1>", lambda e: webbrowser.open("https://github.com/Lokray06/CRIS"))
 
-link_label.bind("<Button-1>", open_github)  # Open link on click
-
-#Porfolio Link
-link_label = tb.Label(
+# Portfolio Link
+portfolio_label = tb.Label(
     about_tab,
     text="My web",
-    font=("Helvetica", 12, "underline"),  # Underline the text
-    foreground="turquoise",  # Make it look like a hyperlink
-    cursor="hand2"  # Change cursor on hover
+    font=("Helvetica", 12, "underline"),
+    foreground="turquoise",
+    cursor="hand2"
 )
-link_label.pack(pady=5)
+portfolio_label.pack(pady=5)
 
-# Make link clickable
-def open_github(event):
-    webbrowser.open("https://jpgp.es")
-
-link_label.bind("<Button-1>", open_github)  # Open link on click
-
+portfolio_label.bind("<Button-1>", lambda e: webbrowser.open("https://jpgp.es"))
 
 root.mainloop()

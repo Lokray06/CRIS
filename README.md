@@ -1,5 +1,5 @@
 <p align="center" width="100%">
-    <img width="33%" src="icon.png">
+    <img width="33%" src="logo.png">
 </p>
 
 # CRIS (Cryptographic RSA Image Steganography)
