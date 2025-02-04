@@ -138,7 +138,7 @@ python decode.py --image <encoded_image_path> --output <output_file_path> --key 
 ---
 
 ## Contributing
-Contributions are welcome! If you find any issues or want to suggest improvements, feel free to [open an issue](https://github.com/yourusername/CRIS/issues) or submit a pull request.
+Contributions are welcome! If you find any issues or want to suggest improvements, feel free to [open an issue](https://github.com/Lokray06/CRIS/issues) or submit a pull request.
 
 ---
 
@@ -160,4 +160,4 @@ This implementation is for demonstration purposes and may not be suitable for pr
 ---
 
 ## Author
-- [Your Name] ([your.email@example.com])
+- [Your Name] ([contact@jpgp.es])
