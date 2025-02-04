@@ -2,6 +2,7 @@ import os
 from PIL import Image
 import random
 import rsa
+import argparse
 
 def load_public_key(public_key_path):
     """
@@ -101,3 +102,16 @@ def encode_file(file_path, image_path, public_key_path):
     image_path_encoded = os.path.join(image_dir, "encoded_" + image_filename)
     img.save(image_path_encoded)
     print(f"Encoded {file_length} bytes into {image_path_encoded}\nSeed Size: {max_seed_size} bytes")
+
+def main():
+    parser = argparse.ArgumentParser(description="Encode a file into an image using RSA encryption.")
+    parser.add_argument("--file", required=True, help="Path to the file to encode.")
+    parser.add_argument("--image", required=True, help="Path to the image to use for encoding.")
+    parser.add_argument("--key", required=True, help="Path to the public key (.pem file).")
+    
+    args = parser.parse_args()
+    
+    encode_file(args.file, args.image, args.key)
+
+if __name__ == "__main__":
+    main()

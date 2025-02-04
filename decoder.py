@@ -1,6 +1,7 @@
 from PIL import Image
 import random
 import rsa
+import argparse
 
 def load_private_key(private_key_path):
     """
@@ -74,3 +75,17 @@ def decode_file(image_path, output_file_path, private_key_path):
     with open(output_file_path, "wb") as f:
         f.write(file_data)
     print(f"Decoded file saved to {output_file_path}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Decode a file from an encoded image using RSA.")
+    parser.add_argument("--image", required=True, help="Path to the image with the encoded data.")
+    parser.add_argument("--file", required=True, help="Path to the output file into which to write the decoded data.")
+    parser.add_argument("--key", required=True, help="Path to the private key (.pem file).")
+    
+    args = parser.parse_args()
+    
+    decode_file(args.image, args.file, args.key)
+
+if(__name__) == "__main__":
+    main()

@@ -1,5 +1,6 @@
 import ttkbootstrap as tb
 from ttkbootstrap.constants import *
+import tkinter as tk
 from tkinter import filedialog, messagebox
 from encoder import encode_file
 from decoder import decode_file
@@ -45,7 +46,12 @@ def about_info():
 
 # Initialize the main window with Breeze dark theme
 root = tb.Window(themename="darkly")  # 'superhero' is a dark theme similar to Breeze Dark
-root.title("RSA Image Steganography")
+root.title("CRIS")
+
+#Set the icon
+image = tk.PhotoImage(file= "icon.png")
+root.wm_iconphoto(False, image)
+
 
 notebook = tb.Notebook(root)
 notebook.pack(expand=True, fill="both", padx=10, pady=10)

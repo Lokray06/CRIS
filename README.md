@@ -1,3 +1,7 @@
+<p align="center" width="100%">
+    <img width="33%" src="icon.png">
+</p>
+
 # CRIS (Cryptographic RSA Image Steganography)
 
 A Python-based steganography tool that hides files within images using RSA encryption for secure data embedding. This repository provides bidirectional functionality for encoding files into images and decoding them back.
@@ -8,7 +12,7 @@ A Python-based steganography tool that hides files within images using RSA encry
 
 CRIS allows you to:
 
-- **Encode** a file into an image (e.g., PNG, JPG) by scattering its bytes across the image's pixels.
+- **Encode** a file into an image (**PNG**) by scattering its bytes across the image's pixels.
 - **Decode** an encrypted file from an image using a private RSA key.
 
 The encoding process includes:
@@ -59,14 +63,16 @@ The decoding process retrieves the file by reversing these steps.
 
 ---
 
-## Getting Started
+## Using with the tool
+Download the [latest version](https://github.com/Lokray06/CRIS/releases) ...and thats all.
+
+## Using from source code
 
 ### Prerequisites
 
 - Python 3.x
 - `Pillow` library (for image handling)
-- ` rsa` library (for RSA encryption)
-- A pair of RSA keys (public and private)
+- `rsa` library (for RSA encryption)
 
 To install the required libraries:
 
@@ -76,23 +82,35 @@ pip install Pillow rsa
 
 ### Usage
 
+### Generating a pair of keys keygen.py
+```bash
+python keygen.py
+```
+
 #### Encoding
 
 ```bash
-python encode.py --file <your_file_path> --image <your_image_path> --key <public_key_path>
+python encoder.py --file <your_file_path> --image <your_image_path> --key <public_key_path>
 ```
 
 #### Decoding
 
 ```bash
-python decode.py --image <encoded_image_path> --output <output_file_path> --key <private_key_path>
+python decoder.py --image <encoded_image_path> --output <output_file_path> --key <private_key_path>
 ```
 
 ---
 
 ## Examples
+### Example 1: Generating the keys
+```bash
+python keygen.py
 
-### Example 1: Encoding a Text File
+Enter key name: example
+RSA keys saved as 'example_public.pem' and 'example_private.pem'
+```
+
+### Example 2: Encoding a Text File
 
 1. Create a text file.
    ```bash
@@ -101,7 +119,7 @@ python decode.py --image <encoded_image_path> --output <output_file_path> --key 
 
 2. Encode the text file into an image.
    ```bash
-   python encode.py --file secret.txt --image input.png --key public.pem
+   python encode.py --file secret.txt --image input.png --key test_public.pem
    ```
 
    Example Output:
@@ -112,11 +130,11 @@ python decode.py --image <encoded_image_path> --output <output_file_path> --key 
 
 3. The resulting image `encoded_input.png` now contains your file!
 
-### Example 2: Decoding the Encoded File
+### Example 3: Decoding the Encoded File
 
 1. Decode the image to retrieve the hidden file.
    ```bash
-   python decode.py --image encoded_input.png --output output.txt --key private.pem
+   python decode.py --image encoded_input.png --output output.txt --key test_private.pem
    ```
 
    Example Output:
@@ -155,7 +173,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 ## Security Note
-This implementation is for demonstration purposes and may not be suitable for production use. Using steganography and RSA encryption may not provide complete anonymity or security against advanced attacks.
+This implementation is for demonstration purposes as the data is still in the encoded image, just scattered, and the more data gets encoded into an image, the more obvious it is.
+And may not be suitable for production use. Using steganography and RSA encryption may not provide complete anonymity or security against advanced attacks.
 
 ---
 
