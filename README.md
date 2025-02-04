@@ -8,7 +8,7 @@ A Python-based steganography tool that hides files within images using RSA encry
 
 CRIS allows you to:
 
-- **Encode** a file into an image (e.g., PNG, JPG) by scattering its bytes across the image's pixels.
+- **Encode** a file into an image (**PNG**) by scattering its bytes across the image's pixels.
 - **Decode** an encrypted file from an image using a private RSA key.
 
 The encoding process includes:
