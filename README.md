@@ -119,7 +119,7 @@ RSA keys saved as 'example_public.pem' and 'example_private.pem'
 
 2. Encode the text file into an image.
    ```bash
-   python encode.py --file secret.txt --image input.png --key test_public.pem
+   python encode.py --file secret.txt --image input.png --key example_public.pem
    ```
 
    Example Output:
@@ -134,7 +134,7 @@ RSA keys saved as 'example_public.pem' and 'example_private.pem'
 
 1. Decode the image to retrieve the hidden file.
    ```bash
-   python decode.py --image encoded_input.png --output output.txt --key test_private.pem
+   python decode.py --image encoded_input.png --output output.txt --key example_private.pem
    ```
 
    Example Output:
